@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    Restart:
+    <ul xmlns="http://www.w3.org/1999/html">
+    {% for vm in user.vms.all %}
+        <li><a href="{%   url restart:do_restart vm_id=vm.id %}">{{ vm.get_uuid }}</a></li>
+    {% endfor %}
+    </ul>
+{%  endblock %}
