@@ -3,6 +3,13 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+import os.path
+import sys
+
+PROJECT_NAME = "bigredbutton"
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__) + '/../')
+sys.path.append(os.path.realpath(PROJECT_PATH + "/../local_settings/" + PROJECT_NAME ))
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -24,7 +31,7 @@ DATABASES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Warsaw'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -56,7 +63,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.realpath(PROJECT_PATH + "/../www-static/" + PROJECT_NAME)
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -146,3 +153,8 @@ LOGGING = {
         },
     }
 }
+
+try:
+    from local_settings import *
+except ImportError:
+    print "No local settings."

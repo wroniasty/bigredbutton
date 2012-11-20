@@ -1,10 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Restart:
-    <ul xmlns="http://www.w3.org/1999/html">
+
     {% for vm in user.vms.all %}
-        <li><a href="{%   url restart:do_restart vm_id=vm.id %}">{{ vm.get_uuid }}</a></li>
+        <a href="{%   url restart:do_restart vm_id=vm.id %}" style="text-decoration: none;">
+            <div style="width: 25%; color: yellow; background: red; border: solid 1px #500; text-decoration: none; text-align: center; margin: auto;">
+                <div style="color: white">{{ vm.name }} ({{ vm.status }})</div>
+                <div style="font-size: 3em; color: yellow; background: red; ">Kill Kill Kill!</div>
+            </div>
+        </a>
+        <br/>
+    {% empty %}
+        <h3>You have no controllable VMs.</h3>
     {% endfor %}
+    <h3>Pending  tasks:</h3>
+    <ul class="small">
+        {% for vm in user.vms.all %}
+            {% for task in vm.pending_tasks.all %}
+                <li> {{ vm.name }} {{ task.details }} </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    <h3>Log:</h3>
+    <ul class="small">
+        {% for vm in user.vms.all %}
+            {% for log in vm.log.all %}
+                <li> {{ vm.name }} {{ log.when }} {{ log.action }}</li>
+            {% endfor %}
+        {% endfor %}
     </ul>
 {%  endblock %}
