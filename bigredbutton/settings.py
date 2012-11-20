@@ -10,6 +10,8 @@ PROJECT_NAME = "bigredbutton"
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__) + '/../')
 sys.path.append(os.path.realpath(PROJECT_PATH + "/../local_settings/" + PROJECT_NAME ))
 
+print sys.path
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -109,7 +111,7 @@ ROOT_URLCONF = 'bigredbutton.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'bigredbutton.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/kuba/PycharmProjects/bigredbutton/templates',)
+TEMPLATE_DIRS = ( os.path.join(PROJECT_PATH, 'templates'), )
 
 INSTALLED_APPS = (
     'django.contrib.auth',

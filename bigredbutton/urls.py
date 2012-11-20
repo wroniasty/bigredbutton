@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -14,9 +16,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    # url(r'^$', 'restart.views.big_red_restart_button'),
+    url(r'^$', lambda x: HttpResponseRedirect(reverse('restart:index'))),
     url(r'^restart/', include('restart.urls', namespace='restart')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
+    url(r'^accounts/profile/$', lambda x: HttpResponseRedirect(reverse('restart:index'))),
 )
 

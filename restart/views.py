@@ -6,13 +6,13 @@ from django.template.response import TemplateResponse
 import models
 import XenAPI
 
-@login_required(login_url="/accounts/login/")
+@login_required(login_url=reverse('login'))
 def big_red_restart_button(request):
     user = auth.get_user(request)
     map(lambda vm: vm.reload(), user.vms.all())
     return TemplateResponse(request, "restart_button.html", { 'user' : user} )
 
-@login_required(login_url="/accounts/login/")
+@login_required(login_url=reverse('login'))
 def do_restart(request, vm_id):
     try:
         cvm = models.ControllableVM.objects.get(pk=vm_id)

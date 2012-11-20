@@ -13,21 +13,22 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+import os, os.path
 import sys
-import sys.path
 import site
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bigredbutton.settings")
 
 project_path = os.path.realpath ( os.path.dirname(__file__) + "/../" )
-vepath = os.path.realpath ( os.path.dirname(__file__) + "/../../" )
+vepath = os.path.realpath ( os.path.dirname(__file__) + "/../../../" )
 vesite = os.path.realpath ( vepath + "/lib/python2.7/site-packages/" )
 
 prev_sys_path = list(sys.path)
 
 site.addsitedir(vesite)
 sys.path.append ( project_path )
+
+print sys.path
 
 new_sys_path = [p for p in sys.path if p not in prev_sys_path]
 for item in new_sys_path:
