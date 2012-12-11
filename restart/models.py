@@ -66,11 +66,15 @@ class ControlTask(models.Model):
     def details(self):
         if self.active:
             with self.vm.get_session() as session:
-                task = session.xenapi.task.get_record(self.uuid)
-                print task
-                description = "{name_label} : {status} progress: {progress}".format( **task )
-                self.active = task['status'] == 'pending'
-                self.save()
-                return description
+        	try:
+                    task = session.xenapi.task.get_record(self.uuid)
+	            description = "{name_label} : {status} progress: {progress}".format( **task )
+    	            self.active = task['status'] == 'pending'
+    		    self.save()
+                    return description
+                except XenAPI.Failure:
+            	    self.delete()
+            	    return "invalid"
         else:
             return "inactive"
+        
