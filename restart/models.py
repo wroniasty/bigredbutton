@@ -70,7 +70,7 @@ class ControlTask(models.Model):
                     task = session.xenapi.task.get_record(self.uuid)
                 except XenAPI.Failure:
             	    self.delete()
-            	    return inactive
+            	    return "inactive"
                 description = "{name_label} : {status} progress: {progress}".format( **task )
                 self.active = task['status'] == 'pending'
                 self.save()
