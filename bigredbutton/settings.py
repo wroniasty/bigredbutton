@@ -10,8 +10,6 @@ PROJECT_NAME = "bigredbutton"
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__) + '/../')
 sys.path.append(os.path.realpath(PROJECT_PATH + "/../local_settings/" + PROJECT_NAME ))
 
-print sys.path
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
